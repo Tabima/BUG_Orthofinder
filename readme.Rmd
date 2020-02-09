@@ -303,7 +303,7 @@ ggplot(overall_stats.percentage, aes(x=variable , y=value, fill=X)) + geom_bar(s
 
 The second section of the **Statistics per Species** file includes all the statistics of the number and percentage of orthologs that contain data for each species. For today we will focus only on the percentages (Lines 35 - 56):
 
-```{r, results='asis'}
+```{r, results='asis', fig.height=12, fig.width=12}
 perecentage_stats <- read.delim("Results/Statistics_PerSpecies.tsv",fill = T, skip = 35, nrows = 20, sep = "\t", header = T)
 colnames(perecentage_stats)[-1] <- species_names
 
@@ -321,27 +321,6 @@ ggplot(perecentage_stats, aes(x=Number.of.genes.per.species.in.orthogroup , y=va
 
 1. Why are these results expected?
 
-#### Section 2. Per species- per ortholog statistics (Lines 14 to 56)
-
-The second section of the **Statistics per Species** file includes all the statistics of the number and percentage of orthologs that contain data for each species. For today we will focus only on the percentages (Lines 35 - 56):
-
-```{r, results='asis'}
-perecentage_stats <- read.delim("Results/Statistics_PerSpecies.tsv",fill = T, skip = 35, nrows = 20, sep = "\t", header = T)
-colnames(perecentage_stats)[-1] <- species_names
-
-knitr::kable(perecentage_stats) %>%
- kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
-
-perecentage_stats$Number.of.genes.per.species.in.orthogroup <- factor(perecentage_stats$Number.of.genes.per.species.in.orthogroup, levels = perecentage_stats$Number.of.genes.per.species.in.orthogroup)
-
-perecentage_stats <- melt(perecentage_stats)
-
-ggplot(perecentage_stats, aes(x=Number.of.genes.per.species.in.orthogroup , y=value, fill=variable)) + geom_bar(stat="identity", position = "dodge") + scale_fill_viridis_d() + theme_bw() + theme(legend.position = "bottom") + ylab("Percentage (%)")
-```
-
-#####  Questions (Section 2 - Percentage results):
-
-1. Why are these results expected?
 
 *** 
 
